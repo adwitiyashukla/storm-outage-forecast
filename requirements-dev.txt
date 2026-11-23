@@ -1,0 +1,4 @@
+-r requirements.txt
+lifelines==0.30.3
+pytest==9.1.1
+ruff==0.16.7

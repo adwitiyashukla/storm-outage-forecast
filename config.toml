@@ -1,0 +1,98 @@
+[paths]
+raw = "data/raw"
+silver = "data/silver"
+gold = "data/gold/outages.duckdb"
+models = "data/models"
+reports = "data/reports"
+bundle = "data/bundle"
+tmp = "data/tmp"
+
+[years]
+first = 2015
+last = 2025
+train_end = 2022
+valid = 2023
+test_start = 2024
+
+[runtime]
+duckdb_memory_gb = 1.0
+train_memory_gb = 0.75
+threads = 3
+seed = 7
+
+[download]
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) storm-outage-forecast/0.1"
+timeout_s = 60
+retries = 5
+eaglei_article = "https://api.figshare.com/v2/articles/24237376"
+storm_events_index = "https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/"
+ghcn_by_year = "https://www.ncei.noaa.gov/pub/data/ghcn/daily/by_year/{year}.csv.gz"
+ghcn_stations = "https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-stations.txt"
+ghcn_inventory = "https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-inventory.txt"
+zone_county = "https://www.weather.gov/source/gis/Shapefiles/County/bp16ap26.dbx"
+zone_county_index = "https://www.weather.gov/gis/ZoneCounty"
+eia861 = [
+  "https://www.eia.gov/electricity/data/eia861/zip/f861{year}.zip",
+  "https://www.eia.gov/electricity/data/eia861/archive/zip/f861{year}.zip",
+]
+eia861_first = 2015
+eia861_last = 2025
+counties_geojson = "https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json"
+
+[outages]
+significant_share = 0.01
+significant_floor = 250
+event_share = 0.005
+event_floor = 100
+event_min_peak = 500
+merge_gap_hours = 2.0
+restore_share = 0.1
+max_gap_hours = 2.0
+min_covered_days = 30
+min_state_coverage = 0.5
+max_bad_share = 0.2
+
+[weather]
+neighbors = 3
+radius_km = 200.0
+idw_power = 2.0
+gust_quantile = 0.95
+
+[storms]
+lookback_hours = 12.0
+lookahead_hours = 6.0
+
+[risk]
+negative_rate = 0.2
+logistic_rows = 400000
+num_leaves = 63
+learning_rate = 0.05
+max_rounds = 2000
+early_stopping = 100
+min_child_samples = 200
+feature_fraction = 0.8
+bagging_fraction = 0.8
+lambda_l2 = 1.0
+quantiles = [0.1, 0.5, 0.9]
+size_learning_rate = 0.1
+size_num_leaves = 31
+size_min_child_samples = 50
+size_max_rounds = 1000
+climatology_prior = 20.0
+calibration_bins = 10
+shap_rows = 50000
+top_days = 10
+
+[survival]
+min_events = 30
+max_hours = 336.0
+
+[staging]
+mutual_aid_crews = 400
+customers_per_base_crew = 50000
+restore_rate = 40.0
+samples = 400
+top_days = 20
+
+[app]
+top_days = 40
